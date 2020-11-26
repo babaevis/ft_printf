@@ -35,7 +35,7 @@ t_types set_type(char c)
 	else if(c == 'i')
 		types.i = 1;
 	else if(c == 'u')
-		types.i = 1;
+		types.u = 1;
 	else if(c == 'c')
 		types.c = 1;
 	else if(c == 's')
@@ -53,14 +53,15 @@ int check_zero_flag(const char *str)
 int check_minus_flag(const char *str)
 {
 	if(*str == '-')
-	{
-		while(*str++ == '-')
-		{
-			str++;
-		}
 		return 1;
-	}
 	return 0;
+}
+
+int check_precision_flag(char *str)
+{
+	if (*str == '.')
+		return (ft_atoi(str+1));
+	return (0);
 }
 
 t_flags parse_format(char *str)
@@ -71,14 +72,17 @@ t_flags parse_format(char *str)
 	i = 0;
 	flags.zero = check_zero_flag(str);
 	flags.minus = check_minus_flag(str);
-	while(str[i])
+	while (check_minus_flag(str))
+		str++;
+	flags.width = ft_atoi(str);
+	while(ft_isdigit(*str))
+		str++;
+	flags.precision = check_precision_flag(str);
+	while(*str && !is_type(*str))
 	{
-		if (is_type(str[i]))
-		{
-			flags.types = set_type(str[i]);
-			return flags;
-		}
-		i++;
+		str++;
+		if(is_type(*str))
+			flags.types = set_type(*str);
 	}
 	return flags;
 }
