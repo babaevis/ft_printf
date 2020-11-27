@@ -28,7 +28,7 @@ int parse_str(const char *str, va_list list)
 		if (*str == '%')
 		{
 			t_flags flags = get_flags((char *)++str, list);
-			//ft_print_flags(flags);
+			ft_print_flags(flags);
 			count += handle_flags(list, flags);
 			while (!is_type(*str) && *str)
 				str++;
@@ -56,7 +56,7 @@ int main()
 {
 	char *str = "Hello";
 //	printf("%.3d\n", 44);
-//	ft_printf("Hello, i am %d years old\n", 15);
-	printf("%04d", 123);
+	ft_printf("%-*.*d\n", 15, 55,66);
+//	printf("%04d", 123);
 	return 0;
 }
