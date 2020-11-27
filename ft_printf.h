@@ -6,7 +6,6 @@ typedef struct {
 	int zero;
 	int precision;
 	int minus;
-	int asterisk;
 	char type;
 } t_flags;
 
