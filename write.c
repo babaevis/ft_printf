@@ -15,4 +15,3 @@ int 	pf_putstr(char *str)
 		res += pf_putchar(*str++);
 	return res;
 }
-

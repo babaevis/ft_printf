@@ -11,6 +11,11 @@ typedef struct {
 	char type;
 } t_flags;
 
+int		handle_pointer(va_list list, t_flags flags);
+int count_unsigned_digits(unsigned int n);
+char		*ft_unsigned_itoa(unsigned int n);
+int handle_unsigned(va_list list, t_flags flags);
+int handle_hex(va_list list, t_flags flags);
 int handle_char(va_list list, t_flags flags);
 int handle_str(va_list list, t_flags flags);
 int handle_int(va_list list, t_flags flags);

@@ -28,7 +28,7 @@ int parse_str(const char *str, va_list list)
 		if (*str == '%')
 		{
 			t_flags flags = get_flags((char *)++str, list);
-			//ft_print_flags(flags);
+//			ft_print_flags(flags);
 			count += handle_flags(list, flags);
 			while (!is_type(*str) && *str)
 				str++;
@@ -49,17 +49,18 @@ int ft_printf(const char *str, ...)
 
 	count = parse_str(str, list);
 	va_end(list);
-	ft_putchar1('\n');
 	return count;
 }
 
 int main()
 {
-	char *str = "%*.*c\n";
-	char num = 0;
-	int width = -7;
-	int precision = 3;
-	printf("%d | %d", ft_printf(str, width,precision, 0), printf(str, width,precision, 0));
-//	printf(str, width,precision, num);
+	char *str = "Hello %s, im %d years old and i love %-22p :))) \n";
+	char* width = "Islam";
+	int precision = 26;
+	char *ss = "Mom";
+	char c = 'W';
+	printf("%d | %d", ft_printf(str, width,precision, ss), printf(str, width,precision, ss));
+//	printf("\n%.0p\n", str);
+//	printf("%p\n", str);
 	return 0;
 }

@@ -34,16 +34,15 @@ t_flags get_flags(char *str, va_list list)
 	t_flags flags;
 
 	flags = parse_format(str, list);
-	if (flags.minus == 1 && flags.zero == 1)
-		flags.zero = 0;
 	if (!is_numeric_type(flags.type))
 		flags.zero = 0;
-	if (is_numeric_type(flags.type) && flags.precision != -1)
+	if (is_numeric_type(flags.type) && flags.precision > -1)
 		flags.zero = 0;
 	if (flags.width < 0)
 	{
 		flags.width *= -1;
 		flags.minus = 1;
+		flags.zero = 0;
 	}
 	return flags;
 }

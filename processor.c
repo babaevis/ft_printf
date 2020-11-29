@@ -8,5 +8,11 @@ int handle_flags(va_list list, t_flags flags)
 		return (handle_str(list, flags));
 	else if (flags.type == 'c')
 		return (handle_char(list, flags));
-	return 0;
+	else if (flags.type == 'x' || flags.type == 'X')
+		return (handle_hex(list, flags));
+	else if (flags.type == 'u')
+		return (handle_unsigned(list, flags));
+	else if (flags.type == 'p')
+		return (handle_pointer(list, flags));
+	return -1;
 }

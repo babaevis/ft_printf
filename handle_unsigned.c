@@ -21,22 +21,21 @@ static char *join_zeroes(char *num, int count, t_flags flags)
 		res = ft_strjoin("0", tmp);
 		free(tmp);
 	}
-//	ft_putstr(res);
 	return (res);
 }
 
-static char *zero_padd(int arg, t_flags flags)
+static char *zero_padd(unsigned int arg, t_flags flags)
 {
 	char *res;
 	char *tmp;
 	int count;
 	int digits;
 
-	digits = count_digits(arg);
+	digits = count_unsigned_digits(arg);
 	count = 0;
-	if(!(res = ft_itoa(arg)))
+	if(!(res = ft_unsigned_itoa(arg)))
 		return NULL;
-	if ((flags.zero == 0 && flags.precision < 0))
+	if ((flags.zero == 0 && flags.precision == -1))
 		return res;
 	if (flags.zero == 1 && flags.width > digits)
 	{
@@ -84,12 +83,12 @@ static char	*blanks_padd(char *arg, t_flags flags)
 	return (arg);
 }
 
-int handle_int(va_list list, t_flags flags)
+int handle_unsigned(va_list list, t_flags flags)
 {
 	int count;
 	char *res;
 
-	int arg = va_arg(list, int);
+	unsigned int arg = va_arg(list, unsigned int);
 	res = zero_padd(arg, flags);
 	res = blanks_padd(res, flags);
 	count = pf_putstr(res);
