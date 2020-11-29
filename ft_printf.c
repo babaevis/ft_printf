@@ -1,6 +1,6 @@
-
 #include "ft_printf.h"
 #include <stdio.h>
+#include "libft.h"
 
 int ft_putchar1(char c)
 {
@@ -28,7 +28,7 @@ int parse_str(const char *str, va_list list)
 		if (*str == '%')
 		{
 			t_flags flags = get_flags((char *)++str, list);
-			ft_print_flags(flags);
+			//ft_print_flags(flags);
 			count += handle_flags(list, flags);
 			while (!is_type(*str) && *str)
 				str++;
@@ -49,14 +49,17 @@ int ft_printf(const char *str, ...)
 
 	count = parse_str(str, list);
 	va_end(list);
+	ft_putchar1('\n');
 	return count;
 }
 
 int main()
 {
-	char *str = "Hello";
-//	printf("%.3d\n", 44);
-	ft_printf("%-*.*d\n", 15, 55,66);
-//	printf("%04d", 123);
+	char *str = "%*.*c\n";
+	char num = 0;
+	int width = -7;
+	int precision = 3;
+	printf("%d | %d", ft_printf(str, width,precision, 0), printf(str, width,precision, 0));
+//	printf(str, width,precision, num);
 	return 0;
 }
