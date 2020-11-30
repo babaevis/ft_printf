@@ -6,7 +6,7 @@
 #    By: kroyce <kroyce@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/15 17:58:13 by kdeloise          #+#    #+#              #
-#    Updated: 2020/11/30 10:13:26 by kroyce           ###   ########.fr        #
+#    Updated: 2020/12/01 01:36:27 by kroyce           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ FLAGS = gcc -Wall -Werror -Wextra -I.
 HEADER = ft_printf.h
 
 SRC = ft_printf.c check.c parser.c processor.c  \
-		handlers/handle_char.c handlers/handle_hex.c \
+		handlers/handle_char.c handlers/handle_hex.c handlers/handle_percent.c \
 		handlers/handle_int.c handlers/handle_pointer.c \
 		handlers/handle_str.c handlers/handle_unsigned.c \
 		utils/count_digits.c utils/ft_atoi.c utils/ft_itoa.c \

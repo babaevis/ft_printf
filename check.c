@@ -2,8 +2,8 @@
 
 int is_type(char c)
 {
-	return (c == 'd' || c == 'x' || c == 'X' || c == 'u'
-			|| c == 'p' || c == 'i' || c == 's' || c == 'c');
+	return (c == 'd' || c == 'x' || c == 'X' || c == 'u' ||
+	c == '%' || c == 'p' || c == 'i' || c == 's' || c == 'c');
 }
 
 int check_zero_flag(const char *str)

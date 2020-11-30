@@ -14,5 +14,7 @@ int handle_flags(va_list list, t_flags flags)
 		return (handle_unsigned(list, flags));
 	else if (flags.type == 'p')
 		return (handle_pointer(list, flags));
+	else if (flags.type == '%')
+		return (handle_percent(flags));
 	return -1;
 }

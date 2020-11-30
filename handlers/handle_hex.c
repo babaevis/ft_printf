@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-static int count_hex_digits(int nb)
+static int count_hex_digits(unsigned int nb)
 {
 	int res;
 
@@ -13,21 +13,26 @@ static int count_hex_digits(int nb)
 	return (res);
 }
 
-static char *convert_to_hex(int nb, char flag)
+static char *convert_to_hex(unsigned int nb, t_flags flags)
 {
 	char *res;
 	int bytes;
-	char *small_radix = "0123456789abcdef";
-	char *big_radix = "0123456789ABCDEF";
+	char *small_radix;
+	char *big_radix;
+
+	if (nb == 0 && flags.precision != 0)
+		return (ft_strdup("0"));
+	big_radix = "0123456789ABCDEF";
+	small_radix = "0123456789abcdef";
 	bytes = count_hex_digits(nb);
 	if(!(res = (char*)malloc(sizeof(char) * bytes + 1)))
 		return (NULL);
 	res[bytes--] = '\0';
 	while (bytes >= 0)
 	{
-		if (flag == 'x')
+		if (flags.type == 'x')
 			res[bytes] = small_radix[nb % 16];
-		else if (flag == 'X')
+		else if (flags.type == 'X')
 			res[bytes] = big_radix[nb % 16];
 		nb /= 16;
 		bytes--;
@@ -43,8 +48,17 @@ static char *join_zeroes(char *str, t_flags flags)
 
 	len = ft_strlen(str);
 	res = str;
-	if (flags.precision < len)
+	if (flags.precision < len && flags.precision != -1)
 		return str;
+	if (flags.zero == 1)
+	{
+		while (flags.width-- > len) {
+			tmp = res;
+			if (!(res = ft_strjoin("0", res)))
+				return (NULL);
+			free(tmp);
+		}
+	}
 	while (flags.precision-- > len)
 	{
 		tmp = res;
@@ -88,7 +102,7 @@ int handle_hex(va_list list, t_flags flags)
 	int count;
 
 	arg = va_arg(list, int);
-	res = convert_to_hex(arg, flags.type);
+	res = convert_to_hex(arg, flags);
 	res = join_zeroes(res, flags);
 	res = join_blanks(res, flags);
 	count = pf_putstr(res);

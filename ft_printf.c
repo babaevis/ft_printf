@@ -1,6 +1,5 @@
 #include "ft_printf.h"
-#include <stdio.h>
-
+//#include <printf.h>
 //void ft_print_flags(t_flags flags)
 //{
 //	printf("\n1) Zero = %d\n", flags.zero);
@@ -21,7 +20,7 @@ int percent_is_valid(const char *str, int *count)
 	}
 	if (check_zero_flag(str))
 		str++;
-	else if (check_minus_flag(str))
+	if (check_minus_flag(str))
 		while (check_minus_flag(str))
 			str++;
 	if (*str == '*')

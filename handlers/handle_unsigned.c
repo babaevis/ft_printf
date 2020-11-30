@@ -11,7 +11,7 @@ static char *join_zeroes(char *num, int count, t_flags flags)
 		if (flags.precision == 0)
 		{
 			free(res);
-			return ft_strdup(" ");
+			return ft_strdup("\0");
 		}
 		count--;
 	}

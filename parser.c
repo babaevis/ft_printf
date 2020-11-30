@@ -32,7 +32,7 @@ t_flags get_flags(char *str, va_list list)
 	t_flags flags;
 
 	flags = parse_format(str, list);
-	if (!is_numeric_type(flags.type))
+	if (!is_numeric_type(flags.type) && flags.type != '%')
 		flags.zero = 0;
 	if (is_numeric_type(flags.type) && flags.precision > -1)
 		flags.zero = 0;
@@ -42,5 +42,7 @@ t_flags get_flags(char *str, va_list list)
 		flags.minus = 1;
 		flags.zero = 0;
 	}
+	if (flags.precision < -1)
+		flags.precision = 0;
 	return flags;
 }

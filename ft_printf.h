@@ -13,6 +13,7 @@ typedef struct {
 	char type;
 } t_flags;
 
+int	handle_percent(t_flags flags);
 int count_unsigned_digits(unsigned int n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		pf_putchar(char c);

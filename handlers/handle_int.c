@@ -11,7 +11,7 @@ static char *join_zeroes(char *num, int count, t_flags flags)
 		if (flags.precision == 0)
 		{
 			free(res);
-			return ft_strdup(" ");
+			return ft_strdup("\0");
 		}
 		count--;
 	}
@@ -24,7 +24,7 @@ static char *join_zeroes(char *num, int count, t_flags flags)
 	return (res);
 }
 
-static char *zero_padd(int arg, t_flags flags)
+static char *zero_padd(int arg, t_flags flags, int sign)
 {
 	char *res;
 	int count;
@@ -40,9 +40,12 @@ static char *zero_padd(int arg, t_flags flags)
 	{
 		while (flags.width-- > digits)
 			count++;
+		if (sign == 1)
+			count--;
 	}
 	while (flags.precision > digits++)
 		count++;
+
 	res = join_zeroes(res, count, flags);
 
 	return (res);
@@ -86,11 +89,24 @@ int handle_int(va_list list, t_flags flags)
 {
 	int count;
 	char *res;
-	int sign;
 	int arg;
+	int sign;
+	char *tmp;
 
+	sign = 0;
 	arg = va_arg(list, int);
-	res = zero_padd(arg, flags);
+	if (arg < 0)
+	{
+		sign = 1;
+		arg = -arg;
+	}
+	res = zero_padd(arg, flags, sign);
+	if (sign == 1)
+	{
+		tmp = res;
+		res = ft_strjoin("-", res);
+		free(tmp);
+	}
 	res = blanks_padd(res, flags);
 	count = pf_putstr(res);
 	free(res);

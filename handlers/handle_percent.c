@@ -1,5 +1,20 @@
 #include "ft_printf.h"
 
+static char *join_zeroes(char * str, t_flags flags)
+{
+	char *tmp;
+	char *res;
+
+	res = str;
+	while (flags.width-- > 1)
+	{
+		tmp = res;
+		res = ft_strjoin("0", tmp);
+		free(tmp);
+	}
+	return (res);
+}
+
 static char *join_blanks(char *str, t_flags flags)
 {
 	char *res;
@@ -24,30 +39,17 @@ static char *join_blanks(char *str, t_flags flags)
 	return (res);
 }
 
-char *allocate_char(unsigned char c)
-{
-	char *res;
-
-//	if (c == '\0')
-//		return (ft_strdup("\0"));
-	if (!(res = (char *)malloc(2)))
-		return (NULL);
-	res[0] = c;
-	res[1] = '\0';
-	return (res);
-}
-
-int handle_char(va_list list, t_flags flags)
+int	handle_percent(t_flags flags)
 {
 	char *res;
 	int count;
-	unsigned char c;
 
-	c = va_arg(list, int);
-	if (!(res = allocate_char(c)))
+	if (!(res = ft_strdup("%")))
 		return (-1);
-	res = join_blanks(res, flags);
+	if (flags.zero == 1 && flags.minus == 0 && flags.width > 0)
+		res = join_zeroes(res, flags);
+	else if (flags.zero == 0 && flags.width != 0)
+		res = join_blanks(res, flags);
 	count = pf_putstr(res);
-	free(res);
 	return (count);
 }
