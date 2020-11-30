@@ -1,18 +1,16 @@
 #include "ft_printf.h"
 
-int is_numeric_type(char c)
+static int is_numeric_type(char c)
 {
 	if (c == 'd' || c == 'i' ||  c == 'u' || c == 'x' || c == 'X')
 		return (1);
 	return (0);
 }
 
-t_flags parse_format(char *str, va_list list)
+static t_flags parse_format(char *str, va_list list)
 {
-	int i;
 	t_flags flags;
 
-	i = 0;
 	if ((flags.zero = check_zero_flag(str)))
 		str++;
 	flags.minus = check_minus_flag(str);

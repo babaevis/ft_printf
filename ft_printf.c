@@ -1,21 +1,42 @@
 #include "ft_printf.h"
 #include <stdio.h>
-#include "libft.h"
 
-int ft_putchar1(char c)
+//void ft_print_flags(t_flags flags)
+//{
+//	printf("\n1) Zero = %d\n", flags.zero);
+//	printf("2) Minus = %d\n", flags.minus);
+//	printf("3) Width = %d\n", flags.width);
+//	printf("4) Precision = %d\n", flags.precision);
+//	printf("5) Type = %c\n", flags.type);
+//
+//}
+
+int percent_is_valid(const char *str, int *count)
 {
-	write(1, &c, 1);
-	return 1;
-}
-
-void ft_print_flags(t_flags flags)
-{
-	printf("\n1) Zero = %d\n", flags.zero);
-	printf("2) Minus = %d\n", flags.minus);
-	printf("3) Width = %d\n", flags.width);
-	printf("4) Precision = %d\n", flags.precision);
-	printf("5) Type = %c\n", flags.type);
-
+	str++;
+	if (*str == '%')
+	{
+		*count += pf_putchar(*str);
+		return (0);
+	}
+	if (check_zero_flag(str))
+		str++;
+	else if (check_minus_flag(str))
+		while (check_minus_flag(str))
+			str++;
+	if (*str == '*')
+		str++;
+	else if(ft_isdigit(*str))
+		while (ft_isdigit(*str))
+			str++;
+	if (*str == '.')
+		str++;
+	if (*str == '*')
+		str++;
+	else if(ft_isdigit(*str))
+		while (ft_isdigit(*str))
+			str++;
+	return (is_type(*str));
 }
 
 int parse_str(const char *str, va_list list)
@@ -27,6 +48,11 @@ int parse_str(const char *str, va_list list)
 	{
 		if (*str == '%')
 		{
+			if (!(percent_is_valid(str, &count)))
+			{
+				str++;
+				continue;
+			}
 			t_flags flags = get_flags((char *)++str, list);
 //			ft_print_flags(flags);
 			count += handle_flags(list, flags);
@@ -36,31 +62,18 @@ int parse_str(const char *str, va_list list)
 				str++;
 		}
 		else
-			count += ft_putchar1(*str++);
+			count += pf_putchar(*str++);
 	}
 	return count;
 }
 
 int ft_printf(const char *str, ...)
 {
+	int count;
 	va_list list;
 	va_start(list, str);
-	int count;
 
 	count = parse_str(str, list);
 	va_end(list);
 	return count;
-}
-
-int main()
-{
-	char *str = "Hello %s, im %d years old and i love %-22p :))) \n";
-	char* width = "Islam";
-	int precision = 26;
-	char *ss = "Mom";
-	char c = 'W';
-	printf("%d | %d", ft_printf(str, width,precision, ss), printf(str, width,precision, ss));
-//	printf("\n%.0p\n", str);
-//	printf("%p\n", str);
-	return 0;
 }
