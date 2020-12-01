@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_percent.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kroyce <kroyce@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/01 22:43:37 by kroyce            #+#    #+#             */
+/*   Updated: 2020/12/01 22:44:36 by kroyce           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static char *join_zeroes(char * str, t_flags flags)
+static char		*join_zeroes(char *str, t_flags flags)
 {
 	char *tmp;
 	char *res;
@@ -15,13 +27,13 @@ static char *join_zeroes(char * str, t_flags flags)
 	return (res);
 }
 
-static char *join_blanks(char *str, t_flags flags)
+static char		*join_blanks(char *str, t_flags flags)
 {
 	char *res;
 	char *tmp;
 
 	res = str;
-	while(--flags.width > 0)
+	while (--flags.width > 0)
 	{
 		tmp = res;
 		if (flags.minus == 1)
@@ -39,10 +51,10 @@ static char *join_blanks(char *str, t_flags flags)
 	return (res);
 }
 
-int	handle_percent(t_flags flags)
+int				handle_percent(t_flags flags)
 {
-	char *res;
-	int count;
+	char	*res;
+	int		count;
 
 	if (!(res = ft_strdup("%")))
 		return (-1);

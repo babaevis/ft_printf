@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_unsigned_itoa.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kroyce <kroyce@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/01 23:07:40 by kroyce            #+#    #+#             */
+/*   Updated: 2020/12/01 23:07:40 by kroyce           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int count_unsigned_digits(unsigned int n)
+int		count_unsigned_digits(unsigned int n)
 {
 	int k;
 
@@ -13,7 +25,7 @@ int count_unsigned_digits(unsigned int n)
 	return (k);
 }
 
-char		*ft_unsigned_itoa(unsigned int n)
+char	*ft_unsigned_itoa(unsigned int n)
 {
 	char	*res;
 	int		k;

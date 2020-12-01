@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_pointer.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kroyce <kroyce@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/01 22:45:37 by kroyce            #+#    #+#             */
+/*   Updated: 2020/12/01 22:47:20 by kroyce           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static int count_hex_digits(long nb)
+static int		count_hex_digits(long nb)
 {
 	int res;
 
@@ -13,13 +25,17 @@ static int count_hex_digits(long nb)
 	return (res);
 }
 
-static char *convert_to_hex(long nb)
+static char		*convert_to_hex(long nb)
 {
-	char *res;
-	int bytes;
-	char *radix = "0123456789abcdef";
+	char	*res;
+	int		bytes;
+	char	*radix;
+
+	if (nb == 0)
+		return (ft_strdup("0"));
 	bytes = count_hex_digits(nb);
-	if(!(res = (char*)malloc(sizeof(char) * bytes + 1)))
+	radix = "0123456789abcdef";
+	if (!(res = (char*)malloc(sizeof(char) * bytes + 1)))
 		return (NULL);
 	res[bytes--] = '\0';
 	while (bytes >= 0)
@@ -31,7 +47,7 @@ static char *convert_to_hex(long nb)
 	return (res);
 }
 
-static char *add_prefix(char *str)
+static char		*add_prefix(char *str)
 {
 	char *res;
 
@@ -41,11 +57,11 @@ static char *add_prefix(char *str)
 	return (res);
 }
 
-static char *join_blanks(char *str, t_flags flags)
+static char		*join_blanks(char *str, t_flags flags)
 {
-	char *res;
-	char *tmp;
-	int len;
+	char	*res;
+	char	*tmp;
+	int		len;
 
 	res = str;
 	len = ft_strlen(str);
@@ -67,11 +83,11 @@ static char *join_blanks(char *str, t_flags flags)
 	return (res);
 }
 
-int		handle_pointer(va_list list, t_flags flags)
+int				handle_pointer(va_list list, t_flags flags)
 {
-	char *res;
-	void *ptr;
-	int count;
+	char	*res;
+	void	*ptr;
+	int		count;
 
 	ptr = va_arg(list, void *);
 	res = convert_to_hex((long)ptr);

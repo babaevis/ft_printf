@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kroyce <kroyce@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/01 23:16:41 by kroyce            #+#    #+#             */
+/*   Updated: 2020/12/01 23:18:26 by kroyce           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static int is_numeric_type(char c)
+static int		is_numeric_type(char c)
 {
-	if (c == 'd' || c == 'i' ||  c == 'u' || c == 'x' || c == 'X')
+	if (c == 'd' || c == 'i' || c == 'u' || c == 'x' || c == 'X')
 		return (1);
 	return (0);
 }
 
-static t_flags parse_format(char *str, va_list list)
+static t_flags	parse_format(char *str, va_list list)
 {
 	t_flags flags;
 
@@ -17,17 +29,17 @@ static t_flags parse_format(char *str, va_list list)
 	while (check_minus_flag(str))
 		str++;
 	flags.width = check_width_flag(str, list);
-	while(ft_isdigit(*str) || *str == '*')
+	while (ft_isdigit(*str) || *str == '*')
 		str++;
 	flags.precision = check_precision_flag(str, list);
-	while(*str && !is_type(*str))
+	while (*str && !is_type(*str))
 		str++;
 	if (is_type(*str))
 		flags.type = *str;
-	return flags;
+	return (flags);
 }
 
-t_flags get_flags(char *str, va_list list)
+t_flags			get_flags(char *str, va_list list)
 {
 	t_flags flags;
 
@@ -44,5 +56,5 @@ t_flags get_flags(char *str, va_list list)
 	}
 	if (flags.precision < -1)
 		flags.precision = 0;
-	return flags;
+	return (flags);
 }
