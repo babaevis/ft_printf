@@ -6,20 +6,20 @@
 /*   By: kroyce <kroyce@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 22:18:13 by kroyce            #+#    #+#             */
-/*   Updated: 2020/12/01 22:19:49 by kroyce           ###   ########.fr       */
+/*   Updated: 2020/12/02 19:52:23 by kroyce           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char		*join_blanks(char *str, t_flags flags)
+static char		*join_blanks(char *str, t_flags flags, int *count)
 {
 	char *res;
 	char *tmp;
 
 	res = str;
 	if (res[0] == 0 && flags.width && flags.minus == 1)
-		pf_putchar(0);
+		*count += pf_putchar(0);
 	while (--flags.width > 0)
 	{
 		tmp = res;
@@ -57,7 +57,8 @@ int				handle_char(va_list list, t_flags flags)
 	int				count;
 	unsigned char	c;
 
-	c = va_arg(list, int);
+	count = 0;
+	c = (unsigned char)va_arg(list, int);
 	if (c == 0 && flags.width == 0)
 	{
 		count = pf_putchar(0);
@@ -68,9 +69,9 @@ int				handle_char(va_list list, t_flags flags)
 		if (!(res = allocate_char(c)))
 			return (-1);
 	}
-	if (!(res = join_blanks(res, flags)))
+	if (!(res = join_blanks(res, flags, &count)))
 		return (-1);
-	count = pf_putstr(res);
+	count += pf_putstr(res);
 	if (c == 0 && flags.minus == 0)
 		count += pf_putchar(0);
 	free(res);

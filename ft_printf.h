@@ -6,7 +6,7 @@
 /*   By: kroyce <kroyce@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:18:59 by kroyce            #+#    #+#             */
-/*   Updated: 2020/12/01 23:26:02 by kroyce           ###   ########.fr       */
+/*   Updated: 2020/12/02 16:49:22 by kroyce           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct	s_flags{
 	char	type;
 }				t_flags;
 
-int				handle_percent();
+int				handle_percent(t_flags flags);
 int				count_unsigned_digits(unsigned int n);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				pf_putchar(char c);
@@ -44,6 +44,7 @@ int				handle_char(va_list list, t_flags flags);
 int				handle_str(va_list list, t_flags flags);
 int				handle_int(va_list list, t_flags flags);
 int				pf_putstr(char *str);
+int				pf_putnbr(int nb);
 int				is_type(char c);
 int				check_zero_flag(const char *str);
 int				check_minus_flag(const char *str);

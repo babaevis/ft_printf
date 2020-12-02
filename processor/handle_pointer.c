@@ -90,9 +90,12 @@ int				handle_pointer(va_list list, t_flags flags)
 	int		count;
 
 	ptr = va_arg(list, void *);
-	res = convert_to_hex((long)ptr);
-	res = add_prefix(res);
-	res = join_blanks(res, flags);
+	if (!(res = convert_to_hex((long)ptr)))
+		return (-1);
+	if (!(res = add_prefix(res)))
+		return (-1);
+	if (!(res = join_blanks(res, flags)))
+		return (-1);
 	count = pf_putstr(res);
 	free(res);
 	return (count);

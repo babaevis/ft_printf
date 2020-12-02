@@ -6,7 +6,7 @@
 /*   By: kroyce <kroyce@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 22:20:22 by kroyce            #+#    #+#             */
-/*   Updated: 2020/12/01 22:22:37 by kroyce           ###   ########.fr       */
+/*   Updated: 2020/12/02 17:12:08 by kroyce           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char		*join_zeroes(char *num, int count, t_flags flags)
 	return (res);
 }
 
-static char		*zero_padd(int arg, t_flags flags, int sign)
+static char		*treat_zeroes(int arg, t_flags flags, int sign)
 {
 	char	*res;
 	int		count;
@@ -87,7 +87,7 @@ static char		*join_blanks(char *str, t_flags flags)
 	return (res);
 }
 
-static char		*blanks_padd(char *arg, t_flags flags, int sign)
+static char		*treat_blanks(char *arg, t_flags flags, int sign)
 {
 	char *tmp;
 
@@ -122,9 +122,9 @@ int				handle_int(va_list list, t_flags flags)
 		sign = 1;
 		arg = -arg;
 	}
-	if (!(res = zero_padd(arg, flags, sign)))
+	if (!(res = treat_zeroes(arg, flags, sign)))
 		return (-1);
-	if (!(res = blanks_padd(res, flags, sign)))
+	if (!(res = treat_blanks(res, flags, sign)))
 		return (-1);
 	count = pf_putstr(res);
 	free(res);

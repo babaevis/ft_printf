@@ -63,5 +63,6 @@ int				handle_percent(t_flags flags)
 	else if (flags.zero == 0 && flags.width != 0)
 		res = join_blanks(res, flags);
 	count = pf_putstr(res);
+	free(res);
 	return (count);
 }
